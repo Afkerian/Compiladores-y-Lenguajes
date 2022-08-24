@@ -1,0 +1,101 @@
+Grammar
+
+    0 $accept: N $end
+
+    1 N: L
+
+    2 L: L B
+    3  | B
+
+    4 B: ZERO
+    5  | ONE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    ZERO (258) 4
+    ONE (259) 5
+
+
+Nonterminals, with rules where they appear
+
+    $accept (5)
+        on left: 0
+    N (6)
+        on left: 1
+        on right: 0
+    L (7)
+        on left: 2 3
+        on right: 1 2
+    B (8)
+        on left: 4 5
+        on right: 2 3
+
+
+State 0
+
+    0 $accept: . N $end
+
+    ZERO  shift, and go to state 1
+    ONE   shift, and go to state 2
+
+    N  go to state 3
+    L  go to state 4
+    B  go to state 5
+
+
+State 1
+
+    4 B: ZERO .
+
+    $default  reduce using rule 4 (B)
+
+
+State 2
+
+    5 B: ONE .
+
+    $default  reduce using rule 5 (B)
+
+
+State 3
+
+    0 $accept: N . $end
+
+    $end  shift, and go to state 6
+
+
+State 4
+
+    1 N: L .
+    2 L: L . B
+
+    ZERO  shift, and go to state 1
+    ONE   shift, and go to state 2
+
+    $default  reduce using rule 1 (N)
+
+    B  go to state 7
+
+
+State 5
+
+    3 L: B .
+
+    $default  reduce using rule 3 (L)
+
+
+State 6
+
+    0 $accept: N $end .
+
+    $default  accept
+
+
+State 7
+
+    2 L: L B .
+
+    $default  reduce using rule 2 (L)

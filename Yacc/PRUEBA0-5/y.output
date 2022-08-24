@@ -1,0 +1,142 @@
+Grammar
+
+    0 $accept: str1 $end
+
+    1 str1: str2 nl
+
+    2 str2: UNO str2 UNO
+    3     | CERO str2 CERO
+    4     | A
+
+    5 nl: NL
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    UNO (258) 2
+    CERO (259) 3
+    A (260) 4
+    NL (261) 5
+
+
+Nonterminals, with rules where they appear
+
+    $accept (7)
+        on left: 0
+    str1 (8)
+        on left: 1
+        on right: 0
+    str2 (9)
+        on left: 2 3 4
+        on right: 1 2 3
+    nl (10)
+        on left: 5
+        on right: 1
+
+
+State 0
+
+    0 $accept: . str1 $end
+
+    UNO   shift, and go to state 1
+    CERO  shift, and go to state 2
+    A     shift, and go to state 3
+
+    str1  go to state 4
+    str2  go to state 5
+
+
+State 1
+
+    2 str2: UNO . str2 UNO
+
+    UNO   shift, and go to state 1
+    CERO  shift, and go to state 2
+    A     shift, and go to state 3
+
+    str2  go to state 6
+
+
+State 2
+
+    3 str2: CERO . str2 CERO
+
+    UNO   shift, and go to state 1
+    CERO  shift, and go to state 2
+    A     shift, and go to state 3
+
+    str2  go to state 7
+
+
+State 3
+
+    4 str2: A .
+
+    $default  reduce using rule 4 (str2)
+
+
+State 4
+
+    0 $accept: str1 . $end
+
+    $end  shift, and go to state 8
+
+
+State 5
+
+    1 str1: str2 . nl
+
+    NL  shift, and go to state 9
+
+    nl  go to state 10
+
+
+State 6
+
+    2 str2: UNO str2 . UNO
+
+    UNO  shift, and go to state 11
+
+
+State 7
+
+    3 str2: CERO str2 . CERO
+
+    CERO  shift, and go to state 12
+
+
+State 8
+
+    0 $accept: str1 $end .
+
+    $default  accept
+
+
+State 9
+
+    5 nl: NL .
+
+    $default  reduce using rule 5 (nl)
+
+
+State 10
+
+    1 str1: str2 nl .
+
+    $default  reduce using rule 1 (str1)
+
+
+State 11
+
+    2 str2: UNO str2 UNO .
+
+    $default  reduce using rule 2 (str2)
+
+
+State 12
+
+    3 str2: CERO str2 CERO .
+
+    $default  reduce using rule 3 (str2)

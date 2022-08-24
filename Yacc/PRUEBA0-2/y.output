@@ -1,0 +1,172 @@
+Grammar
+
+    0 $accept: str1 $end
+
+    1 str1: str2 nl
+
+    2 str2: A str2 B str3
+    3     | B str2 A str3
+    4     | ES
+
+    5 str3: ES
+
+    6 nl: EB
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    A (258) 2 3
+    B (259) 2 3
+    EB (260) 6
+    ES (261) 4 5
+
+
+Nonterminals, with rules where they appear
+
+    $accept (7)
+        on left: 0
+    str1 (8)
+        on left: 1
+        on right: 0
+    str2 (9)
+        on left: 2 3 4
+        on right: 1 2 3
+    str3 (10)
+        on left: 5
+        on right: 2 3
+    nl (11)
+        on left: 6
+        on right: 1
+
+
+State 0
+
+    0 $accept: . str1 $end
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    ES  shift, and go to state 3
+
+    str1  go to state 4
+    str2  go to state 5
+
+
+State 1
+
+    2 str2: A . str2 B str3
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    ES  shift, and go to state 3
+
+    str2  go to state 6
+
+
+State 2
+
+    3 str2: B . str2 A str3
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    ES  shift, and go to state 3
+
+    str2  go to state 7
+
+
+State 3
+
+    4 str2: ES .
+
+    $default  reduce using rule 4 (str2)
+
+
+State 4
+
+    0 $accept: str1 . $end
+
+    $end  shift, and go to state 8
+
+
+State 5
+
+    1 str1: str2 . nl
+
+    EB  shift, and go to state 9
+
+    nl  go to state 10
+
+
+State 6
+
+    2 str2: A str2 . B str3
+
+    B  shift, and go to state 11
+
+
+State 7
+
+    3 str2: B str2 . A str3
+
+    A  shift, and go to state 12
+
+
+State 8
+
+    0 $accept: str1 $end .
+
+    $default  accept
+
+
+State 9
+
+    6 nl: EB .
+
+    $default  reduce using rule 6 (nl)
+
+
+State 10
+
+    1 str1: str2 nl .
+
+    $default  reduce using rule 1 (str1)
+
+
+State 11
+
+    2 str2: A str2 B . str3
+
+    ES  shift, and go to state 13
+
+    str3  go to state 14
+
+
+State 12
+
+    3 str2: B str2 A . str3
+
+    ES  shift, and go to state 13
+
+    str3  go to state 15
+
+
+State 13
+
+    5 str3: ES .
+
+    $default  reduce using rule 5 (str3)
+
+
+State 14
+
+    2 str2: A str2 B str3 .
+
+    $default  reduce using rule 2 (str2)
+
+
+State 15
+
+    3 str2: B str2 A str3 .
+
+    $default  reduce using rule 3 (str2)

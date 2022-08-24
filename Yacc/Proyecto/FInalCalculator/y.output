@@ -1,0 +1,688 @@
+Grammar
+
+    0 $accept: Calculadora $end
+
+    1 $@1: %empty
+
+    2 Calculadora: tkn_id $@1 tkn_asign Exp tkn_ptocoma
+
+    3 Exp: NUM
+    4    | Bin
+    5    | Exp tkn_mas Exp
+    6    | Exp tkn_menos Exp
+    7    | Exp tkn_mult Exp
+    8    | Exp tkn_div Exp
+    9    | Exp tkn_elev tkn_paa Exp tkn_pac
+   10    | tkn_raiz tkn_paa Exp tkn_pac
+   11    | tkn_paa Exp tkn_pac
+   12    | tkn_cos tkn_paa Exp tkn_pac
+   13    | tkn_sen tkn_paa Exp tkn_pac
+   14    | tkn_lognat tkn_paa Exp tkn_pac
+   15    | tkn_e tkn_elev tkn_paa Exp tkn_pac
+
+   16 Bin: Bin B
+   17    | B
+
+   18 B: ONE
+   19  | ZERO
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    NUM <real> (258) 3
+    tkn_id <real> (259) 2
+    ONE <real> (260) 18
+    ZERO <real> (261) 19
+    tkn_asign (262) 2
+    tkn_ptocoma (263) 2
+    tkn_mas (264) 5
+    tkn_menos (265) 6
+    tkn_mult (266) 7
+    tkn_div (267) 8
+    tkn_raiz (268) 10
+    tkn_elev (269) 9 15
+    tkn_paa (270) 9 10 11 12 13 14 15
+    tkn_pac (271) 9 10 11 12 13 14 15
+    tkn_cos (272) 12
+    tkn_sen (273) 13
+    tkn_lognat (274) 14
+    tkn_e (275) 15
+
+
+Nonterminals, with rules where they appear
+
+    $accept (21)
+        on left: 0
+    Calculadora (22)
+        on left: 2
+        on right: 0
+    $@1 (23)
+        on left: 1
+        on right: 2
+    Exp <real> (24)
+        on left: 3 4 5 6 7 8 9 10 11 12 13 14 15
+        on right: 2 5 6 7 8 9 10 11 12 13 14 15
+    Bin <real> (25)
+        on left: 16 17
+        on right: 4 16
+    B <real> (26)
+        on left: 18 19
+        on right: 16 17
+
+
+State 0
+
+    0 $accept: . Calculadora $end
+
+    tkn_id  shift, and go to state 1
+
+    Calculadora  go to state 2
+
+
+State 1
+
+    2 Calculadora: tkn_id . $@1 tkn_asign Exp tkn_ptocoma
+
+    $default  reduce using rule 1 ($@1)
+
+    $@1  go to state 3
+
+
+State 2
+
+    0 $accept: Calculadora . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    2 Calculadora: tkn_id $@1 . tkn_asign Exp tkn_ptocoma
+
+    tkn_asign  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: Calculadora $end .
+
+    $default  accept
+
+
+State 5
+
+    2 Calculadora: tkn_id $@1 tkn_asign . Exp tkn_ptocoma
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 15
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 6
+
+    3 Exp: NUM .
+
+    $default  reduce using rule 3 (Exp)
+
+
+State 7
+
+   18 B: ONE .
+
+    $default  reduce using rule 18 (B)
+
+
+State 8
+
+   19 B: ZERO .
+
+    $default  reduce using rule 19 (B)
+
+
+State 9
+
+   10 Exp: tkn_raiz . tkn_paa Exp tkn_pac
+
+    tkn_paa  shift, and go to state 18
+
+
+State 10
+
+   11 Exp: tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 19
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 11
+
+   12 Exp: tkn_cos . tkn_paa Exp tkn_pac
+
+    tkn_paa  shift, and go to state 20
+
+
+State 12
+
+   13 Exp: tkn_sen . tkn_paa Exp tkn_pac
+
+    tkn_paa  shift, and go to state 21
+
+
+State 13
+
+   14 Exp: tkn_lognat . tkn_paa Exp tkn_pac
+
+    tkn_paa  shift, and go to state 22
+
+
+State 14
+
+   15 Exp: tkn_e . tkn_elev tkn_paa Exp tkn_pac
+
+    tkn_elev  shift, and go to state 23
+
+
+State 15
+
+    2 Calculadora: tkn_id $@1 tkn_asign Exp . tkn_ptocoma
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+
+    tkn_ptocoma  shift, and go to state 24
+    tkn_mas      shift, and go to state 25
+    tkn_menos    shift, and go to state 26
+    tkn_mult     shift, and go to state 27
+    tkn_div      shift, and go to state 28
+    tkn_elev     shift, and go to state 29
+
+
+State 16
+
+    4 Exp: Bin .
+   16 Bin: Bin . B
+
+    ONE   shift, and go to state 7
+    ZERO  shift, and go to state 8
+
+    $default  reduce using rule 4 (Exp)
+
+    B  go to state 30
+
+
+State 17
+
+   17 Bin: B .
+
+    $default  reduce using rule 17 (Bin)
+
+
+State 18
+
+   10 Exp: tkn_raiz tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 31
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 19
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+   11    | tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 32
+
+
+State 20
+
+   12 Exp: tkn_cos tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 33
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 21
+
+   13 Exp: tkn_sen tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 34
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 22
+
+   14 Exp: tkn_lognat tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 35
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 23
+
+   15 Exp: tkn_e tkn_elev . tkn_paa Exp tkn_pac
+
+    tkn_paa  shift, and go to state 36
+
+
+State 24
+
+    2 Calculadora: tkn_id $@1 tkn_asign Exp tkn_ptocoma .
+
+    $default  reduce using rule 2 (Calculadora)
+
+
+State 25
+
+    5 Exp: Exp tkn_mas . Exp
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 37
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 26
+
+    6 Exp: Exp tkn_menos . Exp
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 38
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 27
+
+    7 Exp: Exp tkn_mult . Exp
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 39
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 28
+
+    8 Exp: Exp tkn_div . Exp
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 40
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 29
+
+    9 Exp: Exp tkn_elev . tkn_paa Exp tkn_pac
+
+    tkn_paa  shift, and go to state 41
+
+
+State 30
+
+   16 Bin: Bin B .
+
+    $default  reduce using rule 16 (Bin)
+
+
+State 31
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+   10    | tkn_raiz tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 42
+
+
+State 32
+
+   11 Exp: tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 11 (Exp)
+
+
+State 33
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+   12    | tkn_cos tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 43
+
+
+State 34
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+   13    | tkn_sen tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 44
+
+
+State 35
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+   14    | tkn_lognat tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 45
+
+
+State 36
+
+   15 Exp: tkn_e tkn_elev tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 46
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 37
+
+    5 Exp: Exp . tkn_mas Exp
+    5    | Exp tkn_mas Exp .
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+
+    tkn_mult  shift, and go to state 27
+    tkn_div   shift, and go to state 28
+    tkn_elev  shift, and go to state 29
+
+    $default  reduce using rule 5 (Exp)
+
+
+State 38
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    6    | Exp tkn_menos Exp .
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+
+    tkn_mult  shift, and go to state 27
+    tkn_div   shift, and go to state 28
+    tkn_elev  shift, and go to state 29
+
+    $default  reduce using rule 6 (Exp)
+
+
+State 39
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    7    | Exp tkn_mult Exp .
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+
+    tkn_elev  shift, and go to state 29
+
+    $default  reduce using rule 7 (Exp)
+
+
+State 40
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    8    | Exp tkn_div Exp .
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+
+    tkn_elev  shift, and go to state 29
+
+    $default  reduce using rule 8 (Exp)
+
+
+State 41
+
+    9 Exp: Exp tkn_elev tkn_paa . Exp tkn_pac
+
+    NUM         shift, and go to state 6
+    ONE         shift, and go to state 7
+    ZERO        shift, and go to state 8
+    tkn_raiz    shift, and go to state 9
+    tkn_paa     shift, and go to state 10
+    tkn_cos     shift, and go to state 11
+    tkn_sen     shift, and go to state 12
+    tkn_lognat  shift, and go to state 13
+    tkn_e       shift, and go to state 14
+
+    Exp  go to state 47
+    Bin  go to state 16
+    B    go to state 17
+
+
+State 42
+
+   10 Exp: tkn_raiz tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 10 (Exp)
+
+
+State 43
+
+   12 Exp: tkn_cos tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 12 (Exp)
+
+
+State 44
+
+   13 Exp: tkn_sen tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 13 (Exp)
+
+
+State 45
+
+   14 Exp: tkn_lognat tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 14 (Exp)
+
+
+State 46
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+   15    | tkn_e tkn_elev tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 48
+
+
+State 47
+
+    5 Exp: Exp . tkn_mas Exp
+    6    | Exp . tkn_menos Exp
+    7    | Exp . tkn_mult Exp
+    8    | Exp . tkn_div Exp
+    9    | Exp . tkn_elev tkn_paa Exp tkn_pac
+    9    | Exp tkn_elev tkn_paa Exp . tkn_pac
+
+    tkn_mas    shift, and go to state 25
+    tkn_menos  shift, and go to state 26
+    tkn_mult   shift, and go to state 27
+    tkn_div    shift, and go to state 28
+    tkn_elev   shift, and go to state 29
+    tkn_pac    shift, and go to state 49
+
+
+State 48
+
+   15 Exp: tkn_e tkn_elev tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 15 (Exp)
+
+
+State 49
+
+    9 Exp: Exp tkn_elev tkn_paa Exp tkn_pac .
+
+    $default  reduce using rule 9 (Exp)

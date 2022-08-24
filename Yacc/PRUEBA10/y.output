@@ -1,0 +1,464 @@
+Rules useless in parser due to conflicts
+
+   16 P: %empty
+
+
+State 0 conflicts: 14 reduce/reduce
+State 2 conflicts: 14 reduce/reduce
+State 10 conflicts: 13 reduce/reduce
+State 11 conflicts: 13 reduce/reduce
+State 13 conflicts: 7 reduce/reduce
+State 14 conflicts: 7 reduce/reduce
+State 15 conflicts: 7 reduce/reduce
+State 23 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: inicio $end
+
+    1 $@1: %empty
+
+    2 inicio: E $@1 nl
+
+    3 E: E '+' T
+    4  | E '-' T
+    5  | T
+    6  | %empty
+
+    7 T: T '*' F
+    8  | T '/' F
+    9  | F
+   10  | %empty
+
+   11 F: F '^' F
+   12  | P
+   13  | %empty
+
+   14 P: '(' E ')'
+   15  | NUMERO
+   16  | %empty
+
+   17 nl: NL
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 14
+    ')' (41) 14
+    '*' (42) 7
+    '+' (43) 3
+    '-' (45) 4
+    '/' (47) 8
+    '^' (94) 11
+    error (256)
+    NUMERO (258) 15
+    NL (259) 17
+
+
+Nonterminals, with rules where they appear
+
+    $accept (12)
+        on left: 0
+    inicio (13)
+        on left: 2
+        on right: 0
+    $@1 (14)
+        on left: 1
+        on right: 2
+    E (15)
+        on left: 3 4 5 6
+        on right: 2 3 4 14
+    T (16)
+        on left: 7 8 9 10
+        on right: 3 4 5 7 8
+    F (17)
+        on left: 11 12 13
+        on right: 7 8 9 11
+    P (18)
+        on left: 14 15 16
+        on right: 12
+    nl (19)
+        on left: 17
+        on right: 2
+
+
+State 0
+
+    0 $accept: . inicio $end
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    NL        reduce using rule 6 (E)
+    NL        [reduce using rule 10 (T)]
+    NL        [reduce using rule 13 (F)]
+    NL        [reduce using rule 16 (P)]
+    '+'       reduce using rule 6 (E)
+    '+'       [reduce using rule 10 (T)]
+    '+'       [reduce using rule 13 (F)]
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 6 (E)
+    '-'       [reduce using rule 10 (T)]
+    '-'       [reduce using rule 13 (F)]
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 10 (T)
+    '*'       [reduce using rule 13 (F)]
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 10 (T)
+    '/'       [reduce using rule 13 (F)]
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    $default  reduce using rule 6 (E)
+
+    inicio  go to state 3
+    E       go to state 4
+    T       go to state 5
+    F       go to state 6
+    P       go to state 7
+
+
+State 1
+
+   15 P: NUMERO .
+
+    $default  reduce using rule 15 (P)
+
+
+State 2
+
+   14 P: '(' . E ')'
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    '+'       reduce using rule 6 (E)
+    '+'       [reduce using rule 10 (T)]
+    '+'       [reduce using rule 13 (F)]
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 6 (E)
+    '-'       [reduce using rule 10 (T)]
+    '-'       [reduce using rule 13 (F)]
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 10 (T)
+    '*'       [reduce using rule 13 (F)]
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 10 (T)
+    '/'       [reduce using rule 13 (F)]
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    ')'       reduce using rule 6 (E)
+    ')'       [reduce using rule 10 (T)]
+    ')'       [reduce using rule 13 (F)]
+    ')'       [reduce using rule 16 (P)]
+    $default  reduce using rule 6 (E)
+
+    E  go to state 8
+    T  go to state 5
+    F  go to state 6
+    P  go to state 7
+
+
+State 3
+
+    0 $accept: inicio . $end
+
+    $end  shift, and go to state 9
+
+
+State 4
+
+    2 inicio: E . $@1 nl
+    3 E: E . '+' T
+    4  | E . '-' T
+
+    '+'  shift, and go to state 10
+    '-'  shift, and go to state 11
+
+    $default  reduce using rule 1 ($@1)
+
+    $@1  go to state 12
+
+
+State 5
+
+    5 E: T .
+    7 T: T . '*' F
+    8  | T . '/' F
+
+    '*'  shift, and go to state 13
+    '/'  shift, and go to state 14
+
+    $default  reduce using rule 5 (E)
+
+
+State 6
+
+    9 T: F .
+   11 F: F . '^' F
+
+    '^'  shift, and go to state 15
+
+    $default  reduce using rule 9 (T)
+
+
+State 7
+
+   12 F: P .
+
+    $default  reduce using rule 12 (F)
+
+
+State 8
+
+    3 E: E . '+' T
+    4  | E . '-' T
+   14 P: '(' E . ')'
+
+    '+'  shift, and go to state 10
+    '-'  shift, and go to state 11
+    ')'  shift, and go to state 16
+
+
+State 9
+
+    0 $accept: inicio $end .
+
+    $default  accept
+
+
+State 10
+
+    3 E: E '+' . T
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    NL        reduce using rule 10 (T)
+    NL        [reduce using rule 13 (F)]
+    NL        [reduce using rule 16 (P)]
+    '+'       reduce using rule 10 (T)
+    '+'       [reduce using rule 13 (F)]
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 10 (T)
+    '-'       [reduce using rule 13 (F)]
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 10 (T)
+    '*'       [reduce using rule 13 (F)]
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 10 (T)
+    '/'       [reduce using rule 13 (F)]
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    ')'       reduce using rule 10 (T)
+    ')'       [reduce using rule 13 (F)]
+    ')'       [reduce using rule 16 (P)]
+    $default  reduce using rule 10 (T)
+
+    T  go to state 17
+    F  go to state 6
+    P  go to state 7
+
+
+State 11
+
+    4 E: E '-' . T
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    NL        reduce using rule 10 (T)
+    NL        [reduce using rule 13 (F)]
+    NL        [reduce using rule 16 (P)]
+    '+'       reduce using rule 10 (T)
+    '+'       [reduce using rule 13 (F)]
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 10 (T)
+    '-'       [reduce using rule 13 (F)]
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 10 (T)
+    '*'       [reduce using rule 13 (F)]
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 10 (T)
+    '/'       [reduce using rule 13 (F)]
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    ')'       reduce using rule 10 (T)
+    ')'       [reduce using rule 13 (F)]
+    ')'       [reduce using rule 16 (P)]
+    $default  reduce using rule 10 (T)
+
+    T  go to state 18
+    F  go to state 6
+    P  go to state 7
+
+
+State 12
+
+    2 inicio: E $@1 . nl
+
+    NL  shift, and go to state 19
+
+    nl  go to state 20
+
+
+State 13
+
+    7 T: T '*' . F
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    NL        reduce using rule 13 (F)
+    NL        [reduce using rule 16 (P)]
+    '+'       reduce using rule 13 (F)
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 13 (F)
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 13 (F)
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 13 (F)
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    ')'       reduce using rule 13 (F)
+    ')'       [reduce using rule 16 (P)]
+    $default  reduce using rule 13 (F)
+
+    F  go to state 21
+    P  go to state 7
+
+
+State 14
+
+    8 T: T '/' . F
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    NL        reduce using rule 13 (F)
+    NL        [reduce using rule 16 (P)]
+    '+'       reduce using rule 13 (F)
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 13 (F)
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 13 (F)
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 13 (F)
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    ')'       reduce using rule 13 (F)
+    ')'       [reduce using rule 16 (P)]
+    $default  reduce using rule 13 (F)
+
+    F  go to state 22
+    P  go to state 7
+
+
+State 15
+
+   11 F: F '^' . F
+
+    NUMERO  shift, and go to state 1
+    '('     shift, and go to state 2
+
+    NL        reduce using rule 13 (F)
+    NL        [reduce using rule 16 (P)]
+    '+'       reduce using rule 13 (F)
+    '+'       [reduce using rule 16 (P)]
+    '-'       reduce using rule 13 (F)
+    '-'       [reduce using rule 16 (P)]
+    '*'       reduce using rule 13 (F)
+    '*'       [reduce using rule 16 (P)]
+    '/'       reduce using rule 13 (F)
+    '/'       [reduce using rule 16 (P)]
+    '^'       reduce using rule 13 (F)
+    '^'       [reduce using rule 16 (P)]
+    ')'       reduce using rule 13 (F)
+    ')'       [reduce using rule 16 (P)]
+    $default  reduce using rule 13 (F)
+
+    F  go to state 23
+    P  go to state 7
+
+
+State 16
+
+   14 P: '(' E ')' .
+
+    $default  reduce using rule 14 (P)
+
+
+State 17
+
+    3 E: E '+' T .
+    7 T: T . '*' F
+    8  | T . '/' F
+
+    '*'  shift, and go to state 13
+    '/'  shift, and go to state 14
+
+    $default  reduce using rule 3 (E)
+
+
+State 18
+
+    4 E: E '-' T .
+    7 T: T . '*' F
+    8  | T . '/' F
+
+    '*'  shift, and go to state 13
+    '/'  shift, and go to state 14
+
+    $default  reduce using rule 4 (E)
+
+
+State 19
+
+   17 nl: NL .
+
+    $default  reduce using rule 17 (nl)
+
+
+State 20
+
+    2 inicio: E $@1 nl .
+
+    $default  reduce using rule 2 (inicio)
+
+
+State 21
+
+    7 T: T '*' F .
+   11 F: F . '^' F
+
+    '^'  shift, and go to state 15
+
+    $default  reduce using rule 7 (T)
+
+
+State 22
+
+    8 T: T '/' F .
+   11 F: F . '^' F
+
+    '^'  shift, and go to state 15
+
+    $default  reduce using rule 8 (T)
+
+
+State 23
+
+   11 F: F . '^' F
+   11  | F '^' F .
+
+    '^'  shift, and go to state 15
+
+    '^'       [reduce using rule 11 (F)]
+    $default  reduce using rule 11 (F)

@@ -1,0 +1,9 @@
+Un identificador: identificador 
+Palabra Clave: if 
+Un identificador: for 
+Un identificador: formen 
+Palabra Clave: end 
+Un identificador: include 
+Un identificador: else 
+Caracter no reconocido:  
+Palabra Clave: if 

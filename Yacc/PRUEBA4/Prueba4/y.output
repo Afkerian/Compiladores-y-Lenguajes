@@ -1,0 +1,584 @@
+Grammar
+
+    0 $accept: Calculadora $end
+
+    1 $@1: %empty
+
+    2 Calculadora: TKN_ID $@1 TKN_ASIGN Expresion TKN_PTOCOMA
+
+    3 Expresion: TKN_NUM
+    4          | Expresion TKN_MAS Expresion
+    5          | Expresion TKN_MENOS Expresion
+    6          | Expresion TKN_MULT Expresion
+    7          | Expresion TKN_DIV Expresion
+    8          | Expresion TKN_ELEV TKN_PAA Expresion TKN_PAC
+    9          | TKN_RAIZ TKN_PAA Expresion TKN_PAC
+   10          | TKN_PAA Expresion TKN_PAC
+   11          | TKN_COS TKN_PAA Expresion TKN_PAC
+   12          | TKN_SEN TKN_PAA Expresion TKN_PAC
+   13          | TKN_LOGNAT TKN_PAA Expresion TKN_PAC
+   14          | TKN_E TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    TKN_NUM <real> (258) 3
+    TKN_ASIGN (259) 2
+    TKN_PTOCOMA (260) 2
+    TKN_MULT (261) 6
+    TKN_DIV (262) 7
+    TKN_MAS (263) 4
+    TKN_MENOS (264) 5
+    TKN_ELEV (265) 8 14
+    TKN_RAIZ (266) 9
+    TKN_LOGNAT (267) 13
+    TKN_E (268) 14
+    TKN_PAA (269) 8 9 10 11 12 13 14
+    TKN_PAC (270) 8 9 10 11 12 13 14
+    TKN_COS (271) 11
+    TKN_SEN (272) 12
+    TKN_ID <real> (273) 2
+
+
+Nonterminals, with rules where they appear
+
+    $accept (19)
+        on left: 0
+    Calculadora (20)
+        on left: 2
+        on right: 0
+    $@1 (21)
+        on left: 1
+        on right: 2
+    Expresion <real> (22)
+        on left: 3 4 5 6 7 8 9 10 11 12 13 14
+        on right: 2 4 5 6 7 8 9 10 11 12 13 14
+
+
+State 0
+
+    0 $accept: . Calculadora $end
+
+    TKN_ID  shift, and go to state 1
+
+    Calculadora  go to state 2
+
+
+State 1
+
+    2 Calculadora: TKN_ID . $@1 TKN_ASIGN Expresion TKN_PTOCOMA
+
+    $default  reduce using rule 1 ($@1)
+
+    $@1  go to state 3
+
+
+State 2
+
+    0 $accept: Calculadora . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    2 Calculadora: TKN_ID $@1 . TKN_ASIGN Expresion TKN_PTOCOMA
+
+    TKN_ASIGN  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: Calculadora $end .
+
+    $default  accept
+
+
+State 5
+
+    2 Calculadora: TKN_ID $@1 TKN_ASIGN . Expresion TKN_PTOCOMA
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 13
+
+
+State 6
+
+    3 Expresion: TKN_NUM .
+
+    $default  reduce using rule 3 (Expresion)
+
+
+State 7
+
+    9 Expresion: TKN_RAIZ . TKN_PAA Expresion TKN_PAC
+
+    TKN_PAA  shift, and go to state 14
+
+
+State 8
+
+   13 Expresion: TKN_LOGNAT . TKN_PAA Expresion TKN_PAC
+
+    TKN_PAA  shift, and go to state 15
+
+
+State 9
+
+   14 Expresion: TKN_E . TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+    TKN_ELEV  shift, and go to state 16
+
+
+State 10
+
+   10 Expresion: TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 17
+
+
+State 11
+
+   11 Expresion: TKN_COS . TKN_PAA Expresion TKN_PAC
+
+    TKN_PAA  shift, and go to state 18
+
+
+State 12
+
+   12 Expresion: TKN_SEN . TKN_PAA Expresion TKN_PAC
+
+    TKN_PAA  shift, and go to state 19
+
+
+State 13
+
+    2 Calculadora: TKN_ID $@1 TKN_ASIGN Expresion . TKN_PTOCOMA
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+    TKN_PTOCOMA  shift, and go to state 20
+    TKN_MULT     shift, and go to state 21
+    TKN_DIV      shift, and go to state 22
+    TKN_MAS      shift, and go to state 23
+    TKN_MENOS    shift, and go to state 24
+    TKN_ELEV     shift, and go to state 25
+
+
+State 14
+
+    9 Expresion: TKN_RAIZ TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 26
+
+
+State 15
+
+   13 Expresion: TKN_LOGNAT TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 27
+
+
+State 16
+
+   14 Expresion: TKN_E TKN_ELEV . TKN_PAA Expresion TKN_PAC
+
+    TKN_PAA  shift, and go to state 28
+
+
+State 17
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+   10          | TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 29
+
+
+State 18
+
+   11 Expresion: TKN_COS TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 30
+
+
+State 19
+
+   12 Expresion: TKN_SEN TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 31
+
+
+State 20
+
+    2 Calculadora: TKN_ID $@1 TKN_ASIGN Expresion TKN_PTOCOMA .
+
+    $default  reduce using rule 2 (Calculadora)
+
+
+State 21
+
+    6 Expresion: Expresion TKN_MULT . Expresion
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 32
+
+
+State 22
+
+    7 Expresion: Expresion TKN_DIV . Expresion
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 33
+
+
+State 23
+
+    4 Expresion: Expresion TKN_MAS . Expresion
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 34
+
+
+State 24
+
+    5 Expresion: Expresion TKN_MENOS . Expresion
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 35
+
+
+State 25
+
+    8 Expresion: Expresion TKN_ELEV . TKN_PAA Expresion TKN_PAC
+
+    TKN_PAA  shift, and go to state 36
+
+
+State 26
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+    9          | TKN_RAIZ TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 37
+
+
+State 27
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+   13          | TKN_LOGNAT TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 38
+
+
+State 28
+
+   14 Expresion: TKN_E TKN_ELEV TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 39
+
+
+State 29
+
+   10 Expresion: TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 10 (Expresion)
+
+
+State 30
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+   11          | TKN_COS TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 40
+
+
+State 31
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+   12          | TKN_SEN TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 41
+
+
+State 32
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    6          | Expresion TKN_MULT Expresion .
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+    TKN_ELEV  shift, and go to state 25
+
+    $default  reduce using rule 6 (Expresion)
+
+
+State 33
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    7          | Expresion TKN_DIV Expresion .
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+    TKN_ELEV  shift, and go to state 25
+
+    $default  reduce using rule 7 (Expresion)
+
+
+State 34
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    4          | Expresion TKN_MAS Expresion .
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+    TKN_MULT  shift, and go to state 21
+    TKN_DIV   shift, and go to state 22
+    TKN_ELEV  shift, and go to state 25
+
+    $default  reduce using rule 4 (Expresion)
+
+
+State 35
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    5          | Expresion TKN_MENOS Expresion .
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+
+    TKN_MULT  shift, and go to state 21
+    TKN_DIV   shift, and go to state 22
+    TKN_ELEV  shift, and go to state 25
+
+    $default  reduce using rule 5 (Expresion)
+
+
+State 36
+
+    8 Expresion: Expresion TKN_ELEV TKN_PAA . Expresion TKN_PAC
+
+    TKN_NUM     shift, and go to state 6
+    TKN_RAIZ    shift, and go to state 7
+    TKN_LOGNAT  shift, and go to state 8
+    TKN_E       shift, and go to state 9
+    TKN_PAA     shift, and go to state 10
+    TKN_COS     shift, and go to state 11
+    TKN_SEN     shift, and go to state 12
+
+    Expresion  go to state 42
+
+
+State 37
+
+    9 Expresion: TKN_RAIZ TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 9 (Expresion)
+
+
+State 38
+
+   13 Expresion: TKN_LOGNAT TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 13 (Expresion)
+
+
+State 39
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+   14          | TKN_E TKN_ELEV TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 43
+
+
+State 40
+
+   11 Expresion: TKN_COS TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 11 (Expresion)
+
+
+State 41
+
+   12 Expresion: TKN_SEN TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 12 (Expresion)
+
+
+State 42
+
+    4 Expresion: Expresion . TKN_MAS Expresion
+    5          | Expresion . TKN_MENOS Expresion
+    6          | Expresion . TKN_MULT Expresion
+    7          | Expresion . TKN_DIV Expresion
+    8          | Expresion . TKN_ELEV TKN_PAA Expresion TKN_PAC
+    8          | Expresion TKN_ELEV TKN_PAA Expresion . TKN_PAC
+
+    TKN_MULT   shift, and go to state 21
+    TKN_DIV    shift, and go to state 22
+    TKN_MAS    shift, and go to state 23
+    TKN_MENOS  shift, and go to state 24
+    TKN_ELEV   shift, and go to state 25
+    TKN_PAC    shift, and go to state 44
+
+
+State 43
+
+   14 Expresion: TKN_E TKN_ELEV TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 14 (Expresion)
+
+
+State 44
+
+    8 Expresion: Expresion TKN_ELEV TKN_PAA Expresion TKN_PAC .
+
+    $default  reduce using rule 8 (Expresion)

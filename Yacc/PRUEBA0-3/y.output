@@ -1,0 +1,164 @@
+State 12 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: str1 $end
+
+    1 str1: str2 nl
+
+    2 str2: UNO UNO str3 CERO
+    3     | UNO str3
+
+    4 str3: UNO str3 CERO
+    5     | %empty
+
+    6 nl: NL
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    UNO (258) 2 3 4
+    CERO (259) 2 4
+    NL (260) 6
+
+
+Nonterminals, with rules where they appear
+
+    $accept (6)
+        on left: 0
+    str1 (7)
+        on left: 1
+        on right: 0
+    str2 (8)
+        on left: 2 3
+        on right: 1
+    str3 (9)
+        on left: 4 5
+        on right: 2 3 4
+    nl (10)
+        on left: 6
+        on right: 1
+
+
+State 0
+
+    0 $accept: . str1 $end
+
+    UNO  shift, and go to state 1
+
+    str1  go to state 2
+    str2  go to state 3
+
+
+State 1
+
+    2 str2: UNO . UNO str3 CERO
+    3     | UNO . str3
+
+    UNO  shift, and go to state 4
+
+    $default  reduce using rule 5 (str3)
+
+    str3  go to state 5
+
+
+State 2
+
+    0 $accept: str1 . $end
+
+    $end  shift, and go to state 6
+
+
+State 3
+
+    1 str1: str2 . nl
+
+    NL  shift, and go to state 7
+
+    nl  go to state 8
+
+
+State 4
+
+    2 str2: UNO UNO . str3 CERO
+    4 str3: UNO . str3 CERO
+
+    UNO  shift, and go to state 9
+
+    $default  reduce using rule 5 (str3)
+
+    str3  go to state 10
+
+
+State 5
+
+    3 str2: UNO str3 .
+
+    $default  reduce using rule 3 (str2)
+
+
+State 6
+
+    0 $accept: str1 $end .
+
+    $default  accept
+
+
+State 7
+
+    6 nl: NL .
+
+    $default  reduce using rule 6 (nl)
+
+
+State 8
+
+    1 str1: str2 nl .
+
+    $default  reduce using rule 1 (str1)
+
+
+State 9
+
+    4 str3: UNO . str3 CERO
+
+    UNO  shift, and go to state 9
+
+    $default  reduce using rule 5 (str3)
+
+    str3  go to state 11
+
+
+State 10
+
+    2 str2: UNO UNO str3 . CERO
+    4 str3: UNO str3 . CERO
+
+    CERO  shift, and go to state 12
+
+
+State 11
+
+    4 str3: UNO str3 . CERO
+
+    CERO  shift, and go to state 13
+
+
+State 12
+
+    2 str2: UNO UNO str3 CERO .
+    4 str3: UNO str3 CERO .
+
+    NL        reduce using rule 2 (str2)
+    NL        [reduce using rule 4 (str3)]
+    $default  reduce using rule 2 (str2)
+
+
+State 13
+
+    4 str3: UNO str3 CERO .
+
+    $default  reduce using rule 4 (str3)

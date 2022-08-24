@@ -1,0 +1,45 @@
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+ba^ababadada^bad^dabbada
+\n la secuencia ingresada es invalida no es mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+abdabaadab^ada
+\n la secuencia ingresada es invalida no es mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+dad^ad^abaadad^badadbaad
+\n la secuencia ingresada es invalida no es mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+babbaaa
+\n la secuencia ingresada es invalida no es mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+babb
+\n la secuencia ingresada es invalida no es mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+babab 
+\n la secuencia ingresada es invalida no es mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ ./a.out 
+
+ Ingrese una secuencia (cualquier combinacion de 0 y 1)
+ba
+
+ La secuencia es aceptada
+ la secuencia ingresada es valida es un mono
+
+alejandro@ubuntu:~/Escritorio/COMPILADORES/Yacc/DESAFIO PRUEBA 5/PRUEBA DEL MONO$ 

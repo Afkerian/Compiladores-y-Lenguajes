@@ -1,0 +1,168 @@
+Grammar
+
+    0 $accept: str1 $end
+
+    1 str1: str2 nl
+
+    2 str2: A str2 B str2
+    3     | B str2 A str2
+    4     | nl
+
+    5 nl: NL
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    A (258) 2 3
+    B (259) 2 3
+    NL (260) 5
+
+
+Nonterminals, with rules where they appear
+
+    $accept (6)
+        on left: 0
+    str1 (7)
+        on left: 1
+        on right: 0
+    str2 (8)
+        on left: 2 3 4
+        on right: 1 2 3
+    nl (9)
+        on left: 5
+        on right: 1 4
+
+
+State 0
+
+    0 $accept: . str1 $end
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    NL  shift, and go to state 3
+
+    str1  go to state 4
+    str2  go to state 5
+    nl    go to state 6
+
+
+State 1
+
+    2 str2: A . str2 B str2
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    NL  shift, and go to state 3
+
+    str2  go to state 7
+    nl    go to state 6
+
+
+State 2
+
+    3 str2: B . str2 A str2
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    NL  shift, and go to state 3
+
+    str2  go to state 8
+    nl    go to state 6
+
+
+State 3
+
+    5 nl: NL .
+
+    $default  reduce using rule 5 (nl)
+
+
+State 4
+
+    0 $accept: str1 . $end
+
+    $end  shift, and go to state 9
+
+
+State 5
+
+    1 str1: str2 . nl
+
+    NL  shift, and go to state 3
+
+    nl  go to state 10
+
+
+State 6
+
+    4 str2: nl .
+
+    $default  reduce using rule 4 (str2)
+
+
+State 7
+
+    2 str2: A str2 . B str2
+
+    B  shift, and go to state 11
+
+
+State 8
+
+    3 str2: B str2 . A str2
+
+    A  shift, and go to state 12
+
+
+State 9
+
+    0 $accept: str1 $end .
+
+    $default  accept
+
+
+State 10
+
+    1 str1: str2 nl .
+
+    $default  reduce using rule 1 (str1)
+
+
+State 11
+
+    2 str2: A str2 B . str2
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    NL  shift, and go to state 3
+
+    str2  go to state 13
+    nl    go to state 6
+
+
+State 12
+
+    3 str2: B str2 A . str2
+
+    A   shift, and go to state 1
+    B   shift, and go to state 2
+    NL  shift, and go to state 3
+
+    str2  go to state 14
+    nl    go to state 6
+
+
+State 13
+
+    2 str2: A str2 B str2 .
+
+    $default  reduce using rule 2 (str2)
+
+
+State 14
+
+    3 str2: B str2 A str2 .
+
+    $default  reduce using rule 3 (str2)

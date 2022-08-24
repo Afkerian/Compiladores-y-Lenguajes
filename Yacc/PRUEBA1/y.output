@@ -1,0 +1,155 @@
+State 10 conflicts: 2 shift/reduce
+State 11 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: inicio $end
+
+    1 inicio: NOMBRE '=' E
+    2       | E
+
+    3 E: E '+' E
+    4  | E '-' E
+    5  | NUMERO
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '+' (43) 3
+    '-' (45) 4
+    '=' (61) 1
+    error (256)
+    NOMBRE (258) 1
+    NUMERO (259) 5
+
+
+Nonterminals, with rules where they appear
+
+    $accept (8)
+        on left: 0
+    inicio (9)
+        on left: 1 2
+        on right: 0
+    E (10)
+        on left: 3 4 5
+        on right: 1 2 3 4
+
+
+State 0
+
+    0 $accept: . inicio $end
+
+    NOMBRE  shift, and go to state 1
+    NUMERO  shift, and go to state 2
+
+    inicio  go to state 3
+    E       go to state 4
+
+
+State 1
+
+    1 inicio: NOMBRE . '=' E
+
+    '='  shift, and go to state 5
+
+
+State 2
+
+    5 E: NUMERO .
+
+    $default  reduce using rule 5 (E)
+
+
+State 3
+
+    0 $accept: inicio . $end
+
+    $end  shift, and go to state 6
+
+
+State 4
+
+    2 inicio: E .
+    3 E: E . '+' E
+    4  | E . '-' E
+
+    '+'  shift, and go to state 7
+    '-'  shift, and go to state 8
+
+    $default  reduce using rule 2 (inicio)
+
+
+State 5
+
+    1 inicio: NOMBRE '=' . E
+
+    NUMERO  shift, and go to state 2
+
+    E  go to state 9
+
+
+State 6
+
+    0 $accept: inicio $end .
+
+    $default  accept
+
+
+State 7
+
+    3 E: E '+' . E
+
+    NUMERO  shift, and go to state 2
+
+    E  go to state 10
+
+
+State 8
+
+    4 E: E '-' . E
+
+    NUMERO  shift, and go to state 2
+
+    E  go to state 11
+
+
+State 9
+
+    1 inicio: NOMBRE '=' E .
+    3 E: E . '+' E
+    4  | E . '-' E
+
+    '+'  shift, and go to state 7
+    '-'  shift, and go to state 8
+
+    $default  reduce using rule 1 (inicio)
+
+
+State 10
+
+    3 E: E . '+' E
+    3  | E '+' E .
+    4  | E . '-' E
+
+    '+'  shift, and go to state 7
+    '-'  shift, and go to state 8
+
+    '+'       [reduce using rule 3 (E)]
+    '-'       [reduce using rule 3 (E)]
+    $default  reduce using rule 3 (E)
+
+
+State 11
+
+    3 E: E . '+' E
+    4  | E . '-' E
+    4  | E '-' E .
+
+    '+'  shift, and go to state 7
+    '-'  shift, and go to state 8
+
+    '+'       [reduce using rule 4 (E)]
+    '-'       [reduce using rule 4 (E)]
+    $default  reduce using rule 4 (E)

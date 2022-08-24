@@ -1,0 +1,374 @@
+Grammar
+
+    0 $accept: inicio $end
+
+    1 inicio: NOMBRE '=' E
+    2       | E
+
+    3 E: E '+' E
+    4  | E '-' E
+    5  | E '*' E
+    6  | E '/' E
+    7  | E '^' E
+    8  | '(' E ')'
+    9  | NUMERO
+   10  | Bin
+
+   11 Bin: Bin B
+   12    | B
+
+   13 B: ZERO
+   14  | ONE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 8
+    ')' (41) 8
+    '*' (42) 5
+    '+' (43) 3
+    '-' (45) 4
+    '/' (47) 6
+    '=' (61) 1
+    '^' (94) 7
+    error (256)
+    NOMBRE (258) 1
+    NUMERO (259) 9
+    ZERO (260) 13
+    ONE (261) 14
+
+
+Nonterminals, with rules where they appear
+
+    $accept (15)
+        on left: 0
+    inicio (16)
+        on left: 1 2
+        on right: 0
+    E (17)
+        on left: 3 4 5 6 7 8 9 10
+        on right: 1 2 3 4 5 6 7 8
+    Bin (18)
+        on left: 11 12
+        on right: 10 11
+    B (19)
+        on left: 13 14
+        on right: 11 12
+
+
+State 0
+
+    0 $accept: . inicio $end
+
+    NOMBRE  shift, and go to state 1
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    inicio  go to state 6
+    E       go to state 7
+    Bin     go to state 8
+    B       go to state 9
+
+
+State 1
+
+    1 inicio: NOMBRE . '=' E
+
+    '='  shift, and go to state 10
+
+
+State 2
+
+    9 E: NUMERO .
+
+    $default  reduce using rule 9 (E)
+
+
+State 3
+
+   13 B: ZERO .
+
+    $default  reduce using rule 13 (B)
+
+
+State 4
+
+   14 B: ONE .
+
+    $default  reduce using rule 14 (B)
+
+
+State 5
+
+    8 E: '(' . E ')'
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 11
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 6
+
+    0 $accept: inicio . $end
+
+    $end  shift, and go to state 12
+
+
+State 7
+
+    2 inicio: E .
+    3 E: E . '+' E
+    4  | E . '-' E
+    5  | E . '*' E
+    6  | E . '/' E
+    7  | E . '^' E
+
+    '+'  shift, and go to state 13
+    '-'  shift, and go to state 14
+    '*'  shift, and go to state 15
+    '/'  shift, and go to state 16
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 2 (inicio)
+
+
+State 8
+
+   10 E: Bin .
+   11 Bin: Bin . B
+
+    ZERO  shift, and go to state 3
+    ONE   shift, and go to state 4
+
+    $default  reduce using rule 10 (E)
+
+    B  go to state 18
+
+
+State 9
+
+   12 Bin: B .
+
+    $default  reduce using rule 12 (Bin)
+
+
+State 10
+
+    1 inicio: NOMBRE '=' . E
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 19
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 11
+
+    3 E: E . '+' E
+    4  | E . '-' E
+    5  | E . '*' E
+    6  | E . '/' E
+    7  | E . '^' E
+    8  | '(' E . ')'
+
+    '+'  shift, and go to state 13
+    '-'  shift, and go to state 14
+    '*'  shift, and go to state 15
+    '/'  shift, and go to state 16
+    '^'  shift, and go to state 17
+    ')'  shift, and go to state 20
+
+
+State 12
+
+    0 $accept: inicio $end .
+
+    $default  accept
+
+
+State 13
+
+    3 E: E '+' . E
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 21
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 14
+
+    4 E: E '-' . E
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 22
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 15
+
+    5 E: E '*' . E
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 23
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 16
+
+    6 E: E '/' . E
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 24
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 17
+
+    7 E: E '^' . E
+
+    NUMERO  shift, and go to state 2
+    ZERO    shift, and go to state 3
+    ONE     shift, and go to state 4
+    '('     shift, and go to state 5
+
+    E    go to state 25
+    Bin  go to state 8
+    B    go to state 9
+
+
+State 18
+
+   11 Bin: Bin B .
+
+    $default  reduce using rule 11 (Bin)
+
+
+State 19
+
+    1 inicio: NOMBRE '=' E .
+    3 E: E . '+' E
+    4  | E . '-' E
+    5  | E . '*' E
+    6  | E . '/' E
+    7  | E . '^' E
+
+    '+'  shift, and go to state 13
+    '-'  shift, and go to state 14
+    '*'  shift, and go to state 15
+    '/'  shift, and go to state 16
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 1 (inicio)
+
+
+State 20
+
+    8 E: '(' E ')' .
+
+    $default  reduce using rule 8 (E)
+
+
+State 21
+
+    3 E: E . '+' E
+    3  | E '+' E .
+    4  | E . '-' E
+    5  | E . '*' E
+    6  | E . '/' E
+    7  | E . '^' E
+
+    '*'  shift, and go to state 15
+    '/'  shift, and go to state 16
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 3 (E)
+
+
+State 22
+
+    3 E: E . '+' E
+    4  | E . '-' E
+    4  | E '-' E .
+    5  | E . '*' E
+    6  | E . '/' E
+    7  | E . '^' E
+
+    '*'  shift, and go to state 15
+    '/'  shift, and go to state 16
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 4 (E)
+
+
+State 23
+
+    3 E: E . '+' E
+    4  | E . '-' E
+    5  | E . '*' E
+    5  | E '*' E .
+    6  | E . '/' E
+    7  | E . '^' E
+
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 5 (E)
+
+
+State 24
+
+    3 E: E . '+' E
+    4  | E . '-' E
+    5  | E . '*' E
+    6  | E . '/' E
+    6  | E '/' E .
+    7  | E . '^' E
+
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 6 (E)
+
+
+State 25
+
+    3 E: E . '+' E
+    4  | E . '-' E
+    5  | E . '*' E
+    6  | E . '/' E
+    7  | E . '^' E
+    7  | E '^' E .
+
+    '^'  shift, and go to state 17
+
+    $default  reduce using rule 7 (E)

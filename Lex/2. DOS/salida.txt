@@ -1,0 +1,18 @@
+PARE
+Comando pare recibido 
+
+Comando inicio ejecutado 
+ 
+Comando inicio ejecutado 
+
+Comando pare recibido 
+ 
+Comando inicio ejecutado 
+
+Comando pare recibido 
+
+hola
+Comando pare recibido 
+
+Comando inicio ejecutado 
+

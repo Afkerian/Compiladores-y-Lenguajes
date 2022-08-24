@@ -1,0 +1,3 @@
+El resultado de X con los siguientes TOKENS encontrados es : 
+identificador, asigancion, numero positivo, numero positivo, operador mas numero positivo, operador mas numero positivo, operador mas punto y coma =10.00
+Error syntax error
